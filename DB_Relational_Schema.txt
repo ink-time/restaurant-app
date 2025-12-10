@@ -1,0 +1,28 @@
+User(P·id, username, icon, upvoteNum, N·F·groupId → Group) –
+	Group(P·id, name, startHour, endHour) –
+	GroupCart(P·id, totalPrice) –
+	UserCart(P·id, P·F·userId → User, totalPrice, F·groupCartId → GroupCart) –
+	CartItem(P·id, divNumber, F·(userCartId, userId), N·F·menuItemId → MenuItem, 
+NF· dayMenuId → dayMenu) –
+	MenuItem(P·id, name, description,  type, unitPrice, F·MenuId → Menu) –
+	Menu(P·id, startDate, endDate, F·restaurantId → Restaurant) –
+	DayMenu(P·id, price, picture, N·description, F·restaurantId → Restaurant) – 
+	Restaurant(P·id, type, name, avgPricePerson, location, userRating, googleRating) –
+	Recommendation(P·id, text, icon, stars, F·restaurantId → Restaurant) –
+	Upvote(P·id, N·text, F·recommendationId → Recommendation, F·userId → User) – 
+	
+	Medal-User(PF·medalid → Medal, PF·userId → User)
+Medal(P·id, title, icon, description)  –
+
+	Ranking_google(P·type, PF·restaurantId → Restaurant, U·rankingNumber)  –
+	Ranking_app(P·type, PF·restaurantId → Restaurant, U·rankingNumber)  – 
+
+
+-- The difference is how the rankings are made, the ones from the app are calculated in a more precise way than the google ones, and they update bimonthly, however, if there is no date from app recommendations for a certain restaurant (which will happen a lot, mostly in the beginning) then there is still a way to classify the restaurants)
+
+
+
+
+
+
+-- What if a restaurant could be classified with 2 different types at the same time? And how does the classification work exactly? The starts are not enough anymore, because we would need to pay attention to the text of a recommendation, or maybe I can add an element in the recommendation table, that tracks what was eaten, and then the ranking can be managed depending on what type of food that is?? But I would need an AI to do this, or someone working live time to handle these recommendations, maybe the ranking updates twice a month?? And the new recommendations are reviewed and taken into consideration in  the space between one update and the next?
